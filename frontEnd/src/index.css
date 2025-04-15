@@ -1,0 +1,207 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+} */
+.body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.container {
+  margin: 10px;
+  box-shadow: 0 0 10px #00000030;
+  padding: 20px;
+  border-radius: 15px;
+  display: flex;
+  gap: 15px;
+  position: relative;
+  min-height: 448px;
+  /* 🙂 */
+  max-width: 700px;
+}
+.container .form {
+  /* background-color: aqua; */
+  position: relative;
+  width: 50%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 15px;
+  z-index: 3;
+  transition: all 0.5s;
+}
+.container .form .icons {
+  width: 100%;
+  padding: 5px 0;
+  display: flex;
+}
+
+.container .form .icons span {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #00000025;
+  border-radius: 5px;
+  padding: 5px;
+  display: block;
+  margin: auto;
+  text-align: center;
+  cursor: pointer;
+}
+.container .form .icons span:nth-child(1) {
+  color: blue;
+}
+
+.container .form .icons span:nth-child(4) {
+  color: blue;
+}
+
+.container .form > p {
+  font-size: 14px;
+}
+
+.container .form form {
+  width: 100%;
+}
+.container .form form div {
+  width: 100%;
+  margin-bottom: 10px;
+  height: 40px;
+  border: 1px solid blue;
+  border-radius: 5px;
+  /* overflow: hidden; */
+}
+
+.container .form form div > input {
+  width: 100%;
+  background-color: #eee;
+  height: 100%;
+  border: none;
+  outline: none;
+  padding: 5px;
+  border-radius: 5px;
+}
+.hidden {
+  display: none;
+}
+.container .form form p {
+  text-align: center;
+  font-weight: 400;
+  color: #0000007f;
+  cursor: pointer;
+}
+.container .form form button {
+  display: block;
+  width: 150px;
+  margin: 15px auto;
+  border: none;
+  color: #fff;
+  outline: none;
+  padding: 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: rgb(105, 24, 181);
+  font-weight: bold;
+  position: relative;
+  overflow: hidden;
+}
+.container .form form button::after {
+  content: "";
+  position: absolute;
+  width: 6px;
+  height: 100%;
+  background-color: #fff;
+  top: 0;
+  left: -10px;
+  transform: rotate(10deg);
+  transition: all 0.2s;
+}
+.container .form form button:hover::after {
+  left: 105%;
+}
+
+.left {
+  width: 50%;
+  position: relative;
+  background-color: rgb(105, 24, 181);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 15px;
+  padding-left: 15px;
+  border-radius: 5px;
+  border-top-left-radius: 50%;
+  z-index: 5;
+  transition: all 0.5s;
+}
+.next {
+  display: block;
+  width: 150px;
+  margin: 15px auto;
+  border: none;
+  color: #fff;
+  outline: none;
+  padding: 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: 1px solid #fff;
+  background-color: rgb(105, 24, 181);
+  font-weight: bold;
+  transition: all 0.5s;
+}
+.next:hover {
+  background-color: #fff;
+  color: #000;
+}
+
+.transformation {
+  transform: translateX(-105%);
+  border-top-right-radius: 50%;
+  border-top-left-radius: 5px;
+}
+.transformation-form {
+  transform: translateX(105%);
+}
+
+/*  style Error  in form */
+.error {
+  display: block;
+  color: red;
+  font-size: 13px;
+  margin-top: -10px;
+  margin-bottom: 2px;
+}
+.title:disabled {
+  cursor: not-allowed !important;
+}
+
+@media (max-width: 500px) {
+  .container {
+    display: block;
+  }
+  .form {
+    width: 100% !important;
+  }
+  .left {
+    width: 100%;
+    border-radius: 5px;
+  }
+  .left p {
+    text-align: center;
+  }
+  .transformation {
+    transform: translateY(-230%) !important;
+  }
+  .transformation-form {
+    transform: translateY(50%) !important;
+  }
+}
