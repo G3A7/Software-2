@@ -2,6 +2,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LoginAndRegister from "./components/LoginAndRegister";
 import Home from "./components/Home";
 import { Toaster } from "react-hot-toast";
+import UserContext from "./userContext/UserContext";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   const router = createBrowserRouter([
@@ -19,15 +21,22 @@ function App() {
     },
     {
       path: "/home",
-      element: <Home />,
+
+      element: (
+        <ProtectedRoute>
+          <Home />
+        </ProtectedRoute>
+      ),
     },
   ]);
   return (
-    <div>
-      <RouterProvider router={router} />
-      <Toaster />
-      {/* <LoginAndRegister /> */}
-    </div>
+    <UserContext>
+      <div>
+        <RouterProvider router={router} />
+        <Toaster />
+        {/* <LoginAndRegister /> */}
+      </div>
+    </UserContext>
   );
 }
 

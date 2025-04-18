@@ -1,12 +1,14 @@
 import axios from "axios";
 import { useFormik } from "formik";
-import { useEffect, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { data, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import * as Yup from "yup";
+import { userContext } from "../userContext/UserContext";
 
 function LoginAndRegister() {
+  const { setToken } = useContext(userContext);
   const navigate = useNavigate();
   const [style, setStyle] = useState(false);
   const [loginOrRegister, setLoginOrRegister] = useState(true);
@@ -60,7 +62,9 @@ function LoginAndRegister() {
       vals = loginData;
     }
     console.log(vals);
-    const endPoint = `http://localhost:5001/api/v1/auth/${!style ? "login" : "register"}`;
+    const endPoint = `http://localhost:5001/api/v1/auth/${
+      !style ? "login" : "register"
+    }`;
     const dataPromise = axios.post(endPoint, vals);
     toast.promise(dataPromise, {
       loading: "loading",
@@ -70,6 +74,9 @@ function LoginAndRegister() {
     try {
       const { data } = await dataPromise;
       console.log(data);
+      // to context
+      localStorage.setItem("userInfo", JSON.stringify(data));
+      setToken(JSON.parse(localStorage.getItem("userInfo")));
       setTimeout(() => {
         navigate("/home");
       }, 800);
@@ -149,14 +156,21 @@ function LoginAndRegister() {
               <span className="error">{formik.errors.password}</span>
             )}
             <p>Forget Your Password?</p>
-            <button disabled={!formik.isValid || !formik.dirty} type="submit" className="title">
+            <button
+              disabled={!formik.isValid || !formik.dirty}
+              type="submit"
+              className="title"
+            >
               {!style ? "Sign in" : " Sign up"}
             </button>
           </form>
         </div>
         <div className={`left ${!style ? "left" : "left transformation"}`}>
           <h1>Hello,</h1>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, consectetur.</p>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa,
+            consectetur.
+          </p>
           <button
             onClick={() => {
               setStyle((prev) => !prev);
