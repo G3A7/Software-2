@@ -4,6 +4,7 @@ import Home from "./components/Home";
 import { Toaster } from "react-hot-toast";
 import UserContext from "./userContext/UserContext";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Admin from "./components/Admin";
 
 function App() {
   const router = createBrowserRouter([
@@ -25,6 +26,14 @@ function App() {
       element: (
         <ProtectedRoute>
           <Home />
+        </ProtectedRoute>
+      ),
+    },
+    {
+      path: "/admin",
+      element: (
+        <ProtectedRoute>
+          <Admin />
         </ProtectedRoute>
       ),
     },

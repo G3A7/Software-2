@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import { useContext, useEffect, useRef } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { userContext } from "../userContext/UserContext";
 
@@ -61,7 +61,7 @@ function LoginAndRegister() {
       const { name, ...loginData } = vals;
       vals = loginData;
     }
-    console.log(vals);
+    // console.log(vals);
     const endPoint = `http://localhost:5001/api/v1/auth/${
       !style ? "login" : "register"
     }`;
@@ -73,7 +73,7 @@ function LoginAndRegister() {
     });
     try {
       const { data } = await dataPromise;
-      console.log(data);
+      // console.log(data);
       // to context
       localStorage.setItem("userInfo", JSON.stringify(data));
       setToken(JSON.parse(localStorage.getItem("userInfo")));
@@ -186,148 +186,3 @@ function LoginAndRegister() {
 }
 
 export default LoginAndRegister;
-
-// /*
-//     try {
-//        const res = await fetch("http//:localhost:5001/api/v1/auth/register", {
-//          method: "POST",
-//          body: JSON.stringify(vals),
-//          headers: { "Content-type": "application/json" },
-//        });
-
-//        const data = await res.json();
-//        console.log(data);
-//      } catch (error) {
-//        console.log(error);
-//      }
-
-//  try {
-//        const { data } = await axios.post(`http://localhost:5001/api/v1/auth/register`, vals);
-//        console.log(data);
-//      } catch (error) {
-//        console.log(error);
-//      }
-
-// */
-
-// import axios from "axios";
-// import { useFormik } from "formik";
-// import { useEffect, useRef, useState } from "react";
-// import * as Yup from "yup";
-
-// function LoginAndRegister() {
-//   const [style, setStyle] = useState(false);
-//   const firstRender = useRef(true);
-
-//   useEffect(() => {
-//     if (firstRender.current) {
-//       firstRender.current = false;
-//       return;
-//     }
-//   }, [style]);
-
-//   const initialValues = {
-//     name: "",
-//     email: "",
-//     password: "",
-//   };
-
-//   const validationSchema = Yup.object().shape({
-//     ...(style && {
-//       name: Yup.string()
-//         .required("Name is required")
-//         .matches(/^[a-zA-Z]{3,12}$/, "Must be 3-12 characters"),
-//     }),
-//     email: Yup.string()
-//       .required("Email is required")
-//       .matches(/^[a-zA-Z0-9]+@gmail\.com$/, "Must be a valid Gmail"),
-//     password: Yup.string()
-//       .required("Password is required")
-//       .matches(
-//         /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-//         "Must be at least 8 characters, with upper/lowercase, number & special char"
-//       ),
-//   });
-
-//   async function onSubmit(vals, { resetForm }) {
-//     try {
-//       const endpoint = `http://localhost:5001/api/v1/auth/${style ? "register" : "login"}`;
-//       const requestData = style ? vals : { email: vals.email, password: vals.password };
-
-//       const { data } = await axios.post(endpoint, requestData);
-//       console.log(data);
-
-//       // ✅ إعادة تعيين الحقول وإزالة الأخطاء
-//       resetForm({ values: initialValues });
-//     } catch (error) {
-//       console.error("Error:", error.response?.data || error.message);
-//     }
-//   }
-
-//   const formik = useFormik({
-//     initialValues,
-//     validationSchema,
-//     onSubmit,
-//   });
-
-//   return (
-//     <div className="body">
-//       <div className="container">
-//         <div className={`${!style ? "form" : "form transformation-form "}`}>
-//           <h1 className="title">{!style ? "Sign in" : "Sign up"}</h1>
-//           <p>or use your Email and password</p>
-//           <form onSubmit={formik.handleSubmit}>
-//             {style && (
-//               <div className="in-name">
-//                 <input
-//                   id="name"
-//                   {...formik.getFieldProps("name")}
-//                   type="text"
-//                   placeholder="Name"
-//                 />
-//                 {formik.errors.name && formik.touched.name && (
-//                   <span className="error">{formik.errors.name}</span>
-//                 )}
-//               </div>
-//             )}
-//             <div>
-//               <input
-//                 id="email"
-//                 {...formik.getFieldProps("email")}
-//                 type="text"
-//                 placeholder="Email"
-//               />
-//               {formik.errors.email && formik.touched.email && (
-//                 <span className="error">{formik.errors.email}</span>
-//               )}
-//             </div>
-//             <div>
-//               <input
-//                 id="password"
-//                 {...formik.getFieldProps("password")}
-//                 type="password"
-//                 placeholder="Password"
-//               />
-//               {formik.errors.password && formik.touched.password && (
-//                 <span className="error">{formik.errors.password}</span>
-//               )}
-//             </div>
-//             <p>Forget Your Password?</p>
-//             <button disabled={!formik.isValid || !formik.dirty} type="submit" className="title">
-//               {!style ? "Sign in" : "Sign up"}
-//             </button>
-//           </form>
-//         </div>
-//         <div className={`left ${!style ? "left" : "left transformation"}`}>
-//           <h1>Hello,</h1>
-//           <p>Join us today for an amazing experience!</p>
-//           <button onClick={() => setStyle((prev) => !prev)} className="next">
-//             {!style ? "Sign up" : "Sign in"}
-//           </button>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default LoginAndRegister;

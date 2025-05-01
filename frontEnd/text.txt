@@ -1,0 +1,73 @@
+  const [text, setText] = useState("");
+  const [listening, setListening] = useState(false);
+  const [selectedLang, setSelectedLang] = useState("en-US");
+
+  const recognitionRef = useRef(null);
+
+  useEffect(() => {
+    const SpeechRecognition =
+      window.SpeechRecognition || window.webkitSpeechRecognition;
+    const recognition = new SpeechRecognition();
+    recognition.continuous = false;
+    recognition.lang = selectedLang;
+
+    recognition.onresult = (event) => {
+      const transcript = event.results[0][0].transcript;
+      setText(transcript);
+    };
+
+    recognition.onend = () => {
+      setListening(false);
+    };
+
+    recognitionRef.current = recognition;
+  }, [selectedLang]);
+
+  const startListening = () => {
+    if (recognitionRef.current && !listening) {
+      setListening(true);
+      recognitionRef.current.start();
+    }
+  };
+
+
+  <div className="bodyshow">
+        <div className="demo">
+          <div>
+            <button onClick={startListening} disabled={listening}>
+              {listening ? (
+                <i className="fa-solid fa-microphone"></i>
+              ) : (
+                <i className="fa-solid fa-microphone-slash"></i>
+              )}
+            </button>
+
+            <select
+              onChange={(e) => setSelectedLang(e.target.value)}
+              value={selectedLang}
+            >
+              <option value="en-US">English</option>
+              <option value="ar-EG">Arabic</option>
+            </select>
+          </div>
+
+          <textarea
+            style={{
+              direction: selectedLang === "ar-EG" ? "rtl" : "ltr",
+            }}
+            placeholder={
+              selectedLang === "ar-EG"
+                ? listening
+                  ? "تحليل الكلام"
+                  : "النص..."
+                : listening
+                ? "Processing speech"
+                : "Text..."
+            }
+            rows={5}
+            cols={5}
+            value={text}
+            readOnly
+          />
+        </div>
+      </div>

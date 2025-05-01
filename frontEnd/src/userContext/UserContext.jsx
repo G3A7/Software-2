@@ -4,14 +4,13 @@ export const userContext = createContext();
 function UserContext({ children }) {
   const [token, setToken] = useState(null);
   useEffect(() => {
-    // console.log(localStorage.getItem("userInfo"))
-    if (!localStorage.getItem("userInfo")) {
-      setToken(null);
+    if (localStorage.getItem("userInfo")) {
+      setToken(() => JSON.parse(localStorage.getItem("userInfo")));
     } else {
-      console.log("dasdasd");
-      setToken(JSON.parse(localStorage.getItem("userInfo")));
+      setToken(null);
     }
   }, []);
+
   return (
     <userContext.Provider value={{ setToken, token }}>
       {children}
