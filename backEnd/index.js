@@ -18,6 +18,5 @@ app.use("*", (req, res) => {
     .status(404)
     .json({ status: "error", message: "Page Not Found", code: 404 });
 });
-app.listen(process.env.PORT, () => {
-  console.log(`Server Runing 😁 on Port ${process.env.PORT}`);
-});
+
+module.exports = app;

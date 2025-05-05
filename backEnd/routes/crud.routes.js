@@ -4,10 +4,11 @@ const {
   GetAllProducts,
   updateProduct,
   deleteProduct,
+  GetSingleProduct,
 } = require("../controllers/crud.controller");
 const router = express.Router();
 const multer = require("multer");
-const storage =multer.diskStorage({
+const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "uploads");
   },
@@ -21,7 +22,11 @@ router
   .route("/")
   .get(GetAllProducts)
   .post(upload.single("fileImage"), AddProduct);
-router.route("/:id").delete(deleteProduct).put(updateProduct);
+router
+  .route("/:id")
+  .get(GetSingleProduct)
+  .delete(deleteProduct)
+  .put(updateProduct);
 // .get(getSingleProduct);
 
 module.exports = router;
