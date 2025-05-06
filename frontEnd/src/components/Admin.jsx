@@ -62,7 +62,7 @@ function Admin() {
       <Form setUpdate={setUpdate} />
       <div className="my-5">
         <div className="flex flex-wrap">
-          {products &&
+          {products.length ? (
             products?.map((product) => {
               return (
                 <div key={product._id} className="w-full md:w-1/4   p-2">
@@ -105,7 +105,10 @@ function Admin() {
                   </div>
                 </div>
               );
-            })}
+            })
+          ) : (
+            <p className="text-center w-full text-3xl font-medium ">Not Products</p>
+          )}
         </div>
       </div>
       {showModal && (

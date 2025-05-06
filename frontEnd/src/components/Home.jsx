@@ -35,7 +35,7 @@ function Home() {
                 <div className="bg-white shadow-md rounded-lg p-1">
                   <img
                     src={`http://localhost:5001/uploads/${product.fileImage}`}
-                    className="w-full h-48 "
+                    className="w-full h-48 object-contain "
                     alt=""
                   />
                   <div className="flex justify-between items-center mt-2">
@@ -53,7 +53,7 @@ function Home() {
                     onClick={() => {
                       console.log("add to favorite", product._id);
                     }}
-                    className="cursor-pointer absolute top-4 left-4 w-[50px] h-[50px] text-center  flex items-center justify-center bg-white rounded-3xl"
+                    className="cursor-pointer absolute top-4 left-4 w-[50px] h-[50px] text-center  flex items-center justify-center shadow rounded-3xl"
                   >
                     <button className="cursor-pointer">
                       <i className="fa-solid text-xl animate-bounce   fa-heart"></i>

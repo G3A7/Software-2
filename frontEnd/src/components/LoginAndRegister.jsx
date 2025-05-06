@@ -13,19 +13,14 @@ function LoginAndRegister() {
   const [style, setStyle] = useState(false);
   const [loginOrRegister, setLoginOrRegister] = useState(true);
   const firstRender = useRef(true);
-  //   const inp1 = useRef();
-  //   const inp2 = useRef();
-  //   const inp3 = useRef();
   useEffect(() => {
     if (firstRender.current == true) {
       firstRender.current = false;
       return;
     }
     setLoginOrRegister((prev) => !prev);
-    // inp1.current.value = "";
-    // inp2.current.value = "";
-    // inp3.current.value = "";
   }, [style]);
+
   useEffect(() => {
     // console.log(loginOrRegister);
   }, [loginOrRegister]);
@@ -34,6 +29,8 @@ function LoginAndRegister() {
     name: "",
     email: "",
     password: "",
+    repassword: "",
+    phone: "",
   };
   const validationSchema = Yup.object().shape({
     // name: Yup.string()
@@ -54,11 +51,25 @@ function LoginAndRegister() {
         /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
         "Password must be at least 8 characters long, contain an uppercase letter, a lowercase letter, a number, and a special character (@$!%*?&) 😄"
       ),
+    ...(style && {
+      repassword: Yup.string()
+        .oneOf([Yup.ref("password")])
+        .required(),
+    }),
+
+    ...(style && {
+      phone: Yup.string()
+        .matches(
+          /^(020)?(010|012|015|011)[0-9]{8}$/,
+          "must be mobile phone valid please 😐"
+        )
+        .required(),
+    }),
   });
   async function onSubmit(vals, helps) {
     if (!style) {
       // eslint-disable-next-line no-unused-vars
-      const { name, ...loginData } = vals;
+      const { name, repassword, phone, ...loginData } = vals;
       vals = loginData;
     }
     // console.log(vals);
@@ -96,7 +107,7 @@ function LoginAndRegister() {
     <div className="body">
       <div className="container">
         <div className={`${!style ? "form" : "form transformation-form "}`}>
-          <h1 className="title"> {!style ? "Sign in" : " Sign up"}</h1>
+          <h1 className="title py-1"> {!style ? "Sign in" : " Sign up"}</h1>
           <div className="icons">
             <span>
               <i className="fa-brands fa-facebook" />
@@ -155,6 +166,37 @@ function LoginAndRegister() {
             {formik.errors.password && formik.touched.password && (
               <span className="error">{formik.errors.password}</span>
             )}
+
+            <div className={`${!style ? "hidden" : ""}`}>
+              <input
+                id="repassword"
+                value={formik.values.repassword}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                onInput={formik.handleBlur}
+                type="password"
+                placeholder="rePassword"
+              />
+            </div>
+            {style && formik.errors.repassword && formik.touched.repassword && (
+              <span className="error">{formik.errors.repassword}</span>
+            )}
+
+            <div className={`${!style ? "hidden" : ""} `}>
+              <input
+                id="phone"
+                value={formik.values.phone}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                onInput={formik.handleBlur}
+                type="text"
+                placeholder="Phone"
+              />
+            </div>
+            {style && formik.errors.phone && formik.touched.phone && (
+              <span className="error">{formik.errors.phone}</span>
+            )}
+
             <p>Forget Your Password?</p>
             <button
               disabled={!formik.isValid || !formik.dirty}
