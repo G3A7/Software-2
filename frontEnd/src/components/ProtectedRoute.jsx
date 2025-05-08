@@ -1,44 +1,19 @@
-// import { Navigate } from "react-router-dom";
-
-// function ProtectedRoute({ children }) {
-//   if (!localStorage.getItem("userInfo")) {
-//     return <Navigate to={"/login"} />;
-//   } else {
-//     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-//     if (userInfo?.data?.user?.role == "admin") {
-//       if (location.pathname === "/admin") {
-//         return children;
-//       } else {
-//         return <Navigate to="/admin" replace />;
-//       }
-//     } else {
-//       const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-//       if (userInfo?.data?.user?.role == "user") {
-//         if (location.pathname === "/home") {
-//           return children;
-//         } else {
-//           return <Navigate to="/home" replace />;
-//         }
-//       // console.log("user");
-//       // return <Navigate to="/home" replace />;
-//     }
-//   }
-// }
-// }
-// export default ProtectedRoute;
-
+// import { jwtDecode } from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import { Navigate, useLocation } from "react-router-dom";
 
 function ProtectedRoute({ children }) {
   const location = useLocation();
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-
+  // console.log();
   // 1. لو مفيش userInfo → login
   if (!userInfo) {
     return <Navigate to="/login" replace />;
   }
-
-  const role = userInfo?.data?.user?.role;
+  const { role } = jwtDecode(userInfo?.data?.token);
+  // console.log(role);
+  // jwtDecode(userInfo)
+  // const role = userInfo?.data?.user?.role;
 
   // 2. لو Admin
   if (role === "admin") {

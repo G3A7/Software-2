@@ -10,7 +10,7 @@ async function ConnectDB() {
     );
     console.log(`connect to DB 😁 on ${process.env.DB_NAME}`);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     process.exit(1);
   }
 }

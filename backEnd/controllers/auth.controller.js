@@ -1,8 +1,10 @@
 const User = require("../models/user.model");
+const generateToken = require("../utils/generateToken");
+
 async function register(req, res) {
   try {
     const { name, email, password, repassword, phone } = req.body;
-    console.log(name, email, password);
+    // console.log(name, email, password);
     if (!/^[a-zA-Z]{3,12}$/i.test(name) || !name) {
       return res
         .status(400)
@@ -45,18 +47,25 @@ async function register(req, res) {
     }
 
     const user = new User(req.body);
-
-    await user.save();
-    const userDetails = {
+    const token = await generateToken({
       id: user._id,
       email: user.email,
       name: user.name,
       role: user.role,
       phone: user.phone,
-    };
+    });
+    user.token = token;
+    await user.save();
+    // const userDetails = {
+    //   id: user._id,
+    //   email: user.email,
+    //   name: user.name,
+    //   role: user.role,
+    //   phone: user.phone,
+    // };
     return res
       .status(201)
-      .json({ status: "Success", data: { user: userDetails }, code: 201 });
+      .json({ status: "Success", data: { user: token }, code: 201 });
   } catch (error) {
     return res.status(500).json({ status: "error", message: error.message });
   }
@@ -81,12 +90,14 @@ async function login(req, res) {
     }
 
     const user = await User.findOne({ email });
+    console.log(user);
     if (!user || !matchPass(password, user.password)) {
       return res
         .status(400)
         .json({ status: "fail", message: "something Error 😗" });
     }
-    return res.status(200).json({ status: "Success", data: { user } });
+    const { token } = user;
+    return res.status(200).json({ status: "Success", data: { token } });
   } catch (err) {
     res.status(500).json({ status: "error", message: err.message });
   }
@@ -102,4 +113,6 @@ function matchPassBtwRepassword(password, repassword) {
 module.exports = {
   login,
   register,
+  matchPass,
+  matchPassBtwRepassword,
 };

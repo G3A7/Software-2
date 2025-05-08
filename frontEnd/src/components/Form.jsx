@@ -71,6 +71,7 @@ function Form({ setUpdate }) {
         <input
           id="name"
           onInput={formik_2.handleChange}
+          onChange={formik_2.handleBlur}
           onBlur={formik_2.handleBlur}
           value={formik_2.values.name}
           type="text"
@@ -90,6 +91,7 @@ function Form({ setUpdate }) {
           name="description"
           value={formik_2.values.description}
           onInput={formik_2.handleChange}
+          onChange={formik_2.handleBlur}
           onBlur={formik_2.handleBlur}
           cols={5}
           rows={5}

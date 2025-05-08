@@ -5,6 +5,7 @@ import { Toaster } from "react-hot-toast";
 import UserContext from "./userContext/UserContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Admin from "./components/Admin";
+import WishListContext from "./userContext/wishListContext";
 
 function App() {
   const router = createBrowserRouter([
@@ -40,11 +41,13 @@ function App() {
   ]);
   return (
     <UserContext>
-      <div>
-        <RouterProvider router={router} />
-        <Toaster />
-        {/* <LoginAndRegister /> */}
-      </div>
+      <WishListContext>
+        <div>
+          <RouterProvider router={router} />
+          <Toaster />
+          {/* <LoginAndRegister /> */}
+        </div>
+      </WishListContext>
     </UserContext>
   );
 }

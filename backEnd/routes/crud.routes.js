@@ -6,6 +6,9 @@ const {
   deleteProduct,
   GetSingleProduct,
 } = require("../controllers/crud.controller");
+const verifyToken = require("../utils/verifyToken");
+const allowedTo = require("../utils/allowedTo");
+
 const router = express.Router();
 const multer = require("multer");
 const storage = multer.diskStorage({
@@ -20,13 +23,18 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 router
   .route("/")
-  .get(GetAllProducts)
-  .post(upload.single("fileImage"), AddProduct);
+  .get(verifyToken, GetAllProducts)
+  .post(
+    upload.single("fileImage"),
+    verifyToken,
+    allowedTo("admin"),
+    AddProduct
+  );
 router
   .route("/:id")
-  .get(GetSingleProduct)
-  .delete(deleteProduct)
-  .put(updateProduct);
+  .get(verifyToken, GetSingleProduct)
+  .delete(verifyToken, allowedTo("admin"), deleteProduct)
+  .put(verifyToken, allowedTo("admin"), updateProduct);
 // .get(getSingleProduct);
 
 module.exports = router;

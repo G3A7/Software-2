@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { userContext } from "../userContext/UserContext";
 import axios from "axios";
 import Modal from "./Modal";
+import { jwtDecode } from "jwt-decode";
 // import img from "../../public/myLove1.png";
 
 function Admin() {
@@ -54,10 +55,21 @@ function Admin() {
     setShowModal(true);
   };
 
+
+const [name, setName] = useState("");
+  useEffect(() => {
+    if (token) {
+      const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+      const { name } = jwtDecode(userInfo?.data?.token);
+      // console.log(name);
+      setName(name);
+    }
+  }, [token]);
+
   return (
     <div className="w-[90%] mx-auto">
       <h1 className="text-center mt-5 text-2xl font-bold">
-        Hi, {token?.data?.user?.name} 🖐
+        Hi, {name} 🖐
       </h1>
       <Form setUpdate={setUpdate} />
       <div className="my-5">
