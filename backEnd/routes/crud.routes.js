@@ -23,18 +23,13 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 router
   .route("/")
-  .get(verifyToken, GetAllProducts)
-  .post(
-    upload.single("fileImage"),
-    verifyToken,
-    allowedTo("admin"),
-    AddProduct
-  );
+  .get(GetAllProducts)
+  .post(upload.single("fileImage"), AddProduct);
 router
   .route("/:id")
-  .get(verifyToken, GetSingleProduct)
+  .get(GetSingleProduct)
   .delete(verifyToken, allowedTo("admin"), deleteProduct)
-  .put(verifyToken, allowedTo("admin"), updateProduct);
+  .put(verifyToken, updateProduct);
 // .get(getSingleProduct);
 
 module.exports = router;

@@ -1,7 +1,10 @@
+/* eslint-disable no-unused-vars */
 import { useFormik } from "formik";
 import img from "../../public/myLove1.png";
 import * as Yup from "yup";
 import axios from "axios";
+import toast from "react-hot-toast";
+import { data } from "react-router-dom";
 // import { useEffect, useState } from "react";
 
 function Form({ setUpdate }) {
@@ -17,13 +20,20 @@ function Form({ setUpdate }) {
     //   console.log(key, value);
     // }
 
+    const dataPromise = axios.post(
+      "http://localhost:5001/api/v1/products",
+      formData
+    );
+    toast.promise(dataPromise, {
+      loading: "loading...",
+      error: (data) => data.response.data.message,
+      success: "Product Created 🥰",
+    });
+
     try {
-      const { data } = await axios.post(
-        "http://localhost:5001/api/v1/products",
-        formData
-      );
+      const { data } = await dataPromise;
       setUpdate((prev) => !prev);
-      console.log("Product uploaded successfully", data);
+      // console.log("Product uploaded successfully", data);
       resetForm();
     } catch (error) {
       console.log(error.response?.data.message);
@@ -32,7 +42,7 @@ function Form({ setUpdate }) {
   const validationSchema = Yup.object().shape({
     name: Yup.string().min(3).max(10).required(),
     price: Yup.number()
-      .min(80, "Price must be at least 80")
+      .min(1, "Price must be at least 1")
       .required("Price is required"),
 
     description: Yup.string()
@@ -123,7 +133,7 @@ function Form({ setUpdate }) {
         )}
       </div>
 
-      <div className="flex  rounded-md w-[90%] mx-auto h-[40px] focus-within:border-blue-900 focus-within:border-[2px]">
+      <div className="flex justify-between items-center   rounded-md w-[90%] mx-auto h-[60px] focus-within:border-blue-900 focus-within:border-[2px]">
         <input
           id="fileImage"
           name="fileImage"
@@ -144,24 +154,24 @@ function Form({ setUpdate }) {
           <span className="ml-1">Iamge</span>
         </label>
 
-        <div className="w-[35px] h-[35px] rounded-full overflow-hidden border">
+        <div className="w-[60px] h-[60px] rounded-2xl overflow-hidden border">
           {/* <img src={img} className="w-full h-full object-cover" alt="" /> */}
           {formik_2.values.fileImage ? (
             <img
               src={URL.createObjectURL(formik_2.values.fileImage)}
               alt="Preview"
-              className="w-32 h-32 object-cover mt-2"
+              className="w-full h-full object-cover mt-2"
             />
           ) : (
             <img
               src={img}
               alt="Preview"
-              className="w-32 h-32 object-cover mt-2"
+              className="w-full h-full object-cover mt-2"
             />
           )}
         </div>
         {formik_2.errors.fileImage && formik_2.touched.fileImage && (
-          <span className="text-red-500    ">*{formik_2.errors.fileImage}</span>
+          <span className="text-red-500 ">*{formik_2.errors.fileImage}</span>
         )}
       </div>
 

@@ -65,7 +65,7 @@ async function register(req, res) {
     // };
     return res
       .status(201)
-      .json({ status: "Success", data: { user: token }, code: 201 });
+      .json({ status: "Success", data: { token }, code: 201 });
   } catch (error) {
     return res.status(500).json({ status: "error", message: error.message });
   }

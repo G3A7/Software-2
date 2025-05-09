@@ -26,7 +26,7 @@ function Modal({ setShowModal, updateProduct, productId }) {
             const value = inpref.current.value;
             if (!value) return alert("Please enter a value");
             if (isNaN(value)) return alert("Please enter a number");
-            if (value < 0) return alert("Please enter a positive number");
+            if (value <= 0) return alert("Please enter a positive number");
 
             // setNewPrice(value);
             updateProduct(productId, value);
