@@ -26,6 +26,7 @@
   /* 🙂 */
   max-width: 700px;
 }
+
 .container .form {
   /* background-color: aqua; */
   position: relative;
@@ -184,6 +185,25 @@
   cursor: not-allowed !important;
 }
 
+.animate-bay {
+  display: inline-block;
+  animation: moveIconBay 3s linear infinite;
+}
+@keyframes moveIconBay {
+  0% {
+    transform: translateX(0) rotate(0);
+  }
+  50% {
+    transform: translateX(10px) rotate(5deg);
+  }
+  75% {
+    transform: translateX(-10px) rotate(-5deg);
+  }
+  100% {
+    transform: translateX(0) rotate(0);
+  }
+}
+
 @media (max-width: 500px) {
   .container {
     display: block;
@@ -204,6 +224,18 @@
   .transformation-form {
     transform: translateY(40%) !important;
   }
+}
+
+.custom-style {
+  color: transparent;
+  background-clip: text;
+  background-image: linear-gradient(
+    to right,
+    #b408f8 20%,
+    #1f1849 30%,
+    #adb0f1 50%
+  );
+  transition: all 0.5s;
 }
 
 @import "tailwindcss";

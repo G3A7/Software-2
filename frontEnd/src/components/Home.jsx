@@ -79,8 +79,14 @@ function Home() {
   return (
     <div>
       <div className="flex items-center justify-between py-5 px-5 shadow">
-        <h1 className="text-center  text-2xl font-bold">Hi, {name} 🖐</h1>
-        <div className="text-green-600 w-[40px] h-[40px] flex items-center justify-center relative cursor-pointer ml-5">
+        <h1 className="text-center  text-2xl font-bold">
+          Hi, {name} <span className="animate-bay">🖐</span>
+        </h1>
+        <div
+          className={`${
+            wishList?.length > 0 ? "text-red-600" : "text-gray-600"
+          } w-[40px] h-[40px] flex items-center justify-center relative cursor-pointer ml-5`}
+        >
           <span className="absolute top-[-15px] right-0 w-[25px] h-[25px] rounded-full border text-center ">
             {wishList ? wishList?.length : 0}
           </span>
@@ -94,12 +100,12 @@ function Home() {
             return (
               <div
                 key={product._id}
-                className="w-full sm:w-1/2 md:w-1/4  p-2 relative hover:-translate-y-[3px]  transition-all duration-300"
+                className="w-full sm:w-1/2 md:w-1/4  p-2 relative hover:-translate-y-[7px]  transition-all duration-300"
               >
-                <div className=" shadow-md rounded-lg p-2 ">
+                <div className=" shadow-md rounded-lg p-2  ">
                   <img
                     src={`http://localhost:5001/uploads/${product.fileImage}`}
-                    className="w-[80%] mx-auto h-48 "
+                    className="w-[80%] mx-auto h-48 rounded-2xl "
                     alt=""
                   />
                   <div className="flex justify-between items-center mt-2">

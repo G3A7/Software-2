@@ -93,8 +93,10 @@ function Admin() {
   };
 
   return (
-    <div className="w-[90%] mx-auto">
-      <h1 className="text-center mt-5 text-2xl font-bold">Hi, {name} 🖐</h1>
+    <div className="w-[95%] rounded-2xl mx-auto bg-slate-100">
+      <h1 className="text-center pt-5 mt-1  text-2xl font-bold">
+        Hi, {name} <span className="animate-bay">🖐</span>
+      </h1>
       <Form setUpdate={setUpdate} />
       <div className="my-5">
         <div className="flex flex-wrap">
@@ -102,9 +104,9 @@ function Admin() {
             products?.map((product) => {
               return (
                 <div key={product._id} className="w-full md:w-1/4   p-2">
-                  <div className="bg-white shadow-md rounded-lg p-2 hover:-translate-y-[2px]  transition-all duration-300">
+                  <div className="bg-white shadow-md rounded-lg p-2 hover:-translate-y-[7px]  transition-all duration-300">
                     <img
-                      className="w-[90%] mx-auto  h-48"
+                      className="w-[90%] mx-auto rounded-2xl  h-48"
                       src={`http://localhost:5001/uploads/${product.fileImage}`}
                       alt={product.fileImage}
                     />

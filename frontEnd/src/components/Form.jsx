@@ -74,10 +74,12 @@ function Form({ setUpdate }) {
   return (
     <form
       onSubmit={formik_2.handleSubmit}
-      className="w-full md:w-[60%] space-y-[30px]  p-2   mx-auto mt-10 "
+      className="w-full md:w-[50%] space-y-[30px]  p-2   mx-auto mt-10 "
     >
-      <h1 className="text-center text-xl font-medium">Create Product</h1>
-      <div className="border rounded-md w-[90%] mx-auto h-[40px] focus-within:border-blue-900 focus-within:border-[2px]">
+      <h1 className="text-center text-xl uppercase font-medium custom-style">
+        Create Product
+      </h1>
+      <div className="border rounded-md w-[90%] mx-auto h-[40px] border-blue-700 bg-slate-200 ">
         <input
           id="name"
           onInput={formik_2.handleChange}
@@ -89,13 +91,13 @@ function Form({ setUpdate }) {
           placeholder="Product Name.."
         />
         {formik_2.errors.name && formik_2.touched.name && (
-          <span className="text-red-500    block me-auto w-[90%]">
+          <span className="text-red-500   block me-auto w-[90%]">
             *{formik_2.errors.name}
           </span>
         )}
       </div>
 
-      <div className="border rounded-md    w-[90%] mx-auto h-[80px] focus-within:border-blue-900 focus-within:border-[2px]">
+      <div className="border  rounded-md  w-[90%] mx-auto h-[80px] border-blue-700 bg-slate-200">
         <textarea
           id="description"
           name="description"
@@ -109,18 +111,19 @@ function Form({ setUpdate }) {
           className="w-[100%] p-2  h-[100%] border-none outline-none shadow-none resize-none"
         ></textarea>
         {formik_2.errors.description && formik_2.touched.description && (
-          <span className="text-red-500    block me-auto w-[90%]">
+          <span className="text-red-500  -mt-2   block me-auto w-[90%]">
             *{formik_2.errors.description}
           </span>
         )}
       </div>
 
-      <div className="border rounded-md  w-[90%] mx-auto h-[40px] focus-within:border-blue-900 focus-within:border-[2px]">
+      <div className="border rounded-md bg-slate-200  w-[90%] mx-auto h-[40px] border-blue-700 ">
         <input
           id="price"
           name="price"
           value={formik_2.values.price}
-          onChange={formik_2.handleChange}
+          onInput={formik_2.handleChange}
+          onChange={formik_2.handleBlur}
           onBlur={formik_2.handleBlur}
           type="number"
           className="w-[100%] h-[100%] p-2 border-none outline-none shadow-none"
@@ -133,7 +136,7 @@ function Form({ setUpdate }) {
         )}
       </div>
 
-      <div className="flex justify-between items-center   rounded-md w-[90%] mx-auto h-[60px] focus-within:border-blue-900 focus-within:border-[2px]">
+      <div className="flex justify-between items-center flex-wrap   rounded-md w-[90%] mx-auto h-[60px] border-blue-700 ">
         <input
           id="fileImage"
           name="fileImage"
@@ -143,6 +146,7 @@ function Form({ setUpdate }) {
             formik_2.setFieldValue("fileImage", event.currentTarget.files[0]);
           }}
           onBlur={formik_2.handleBlur}
+          onInput={formik_2.handleBlur}
           className="hidden"
         />
 
@@ -151,7 +155,7 @@ function Form({ setUpdate }) {
           className="text-2xl cursor-pointer mr-[35px]"
         >
           <i className="fa-solid fa-image text-red-900 "></i>
-          <span className="ml-1">Iamge</span>
+          <span className="ml-1 uppercase custom-style">Image</span>
         </label>
 
         <div className="w-[60px] h-[60px] rounded-2xl overflow-hidden border">
