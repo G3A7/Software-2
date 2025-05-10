@@ -93,7 +93,7 @@ function Admin() {
   };
 
   return (
-    <div className="w-[95%] rounded-2xl mx-auto bg-slate-100">
+    <div className="w-[95%] min-h-[100vh] rounded-2xl mx-auto bg-slate-100">
       <h1 className="text-center pt-5 mt-1  text-2xl font-bold">
         Hi, {name} <span className="animate-bay">🖐</span>
       </h1>
@@ -104,9 +104,9 @@ function Admin() {
             products?.map((product) => {
               return (
                 <div key={product._id} className="w-full md:w-1/4   p-2">
-                  <div className="bg-white shadow-md rounded-lg p-2 hover:-translate-y-[7px]  transition-all duration-300">
+                  <div className="bg-white shadow-md rounded-lg p-2 hover:-translate-y-[7px] group/h   transition-all duration-300">
                     <img
-                      className="w-[90%] mx-auto rounded-2xl  h-48"
+                      className="w-[90%] mx-auto  rounded-2xl  h-48 group-hover/h:scale-[.9]   transition-all duration-300"
                       src={`http://localhost:5001/uploads/${product.fileImage}`}
                       alt={product.fileImage}
                     />
@@ -118,7 +118,7 @@ function Admin() {
                         {product.price} $
                       </p>
                     </div>
-                    <p className=" line-clamp-1 text-gray-600">
+                    <p className=" line-clamp-1  text-gray-600">
                       {product.description}
                     </p>
                     <div className="flex justify-between mt-2">
@@ -145,7 +145,7 @@ function Admin() {
               );
             })
           ) : (
-            <p className="text-center w-full text-3xl font-medium ">
+            <p className="text-center w-full py-5 text-3xl font-medium ">
               Not Products
             </p>
           )}

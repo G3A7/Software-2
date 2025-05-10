@@ -1,8 +1,9 @@
 const Product = require("../models/product.model.js");
+const upperString = require("../utils/upper.js");
 const AddProduct = async (req, res) => {
   try {
     console.log(req.body);
-    const { name, price, description } = req.body;
+    let { name, price, description } = req.body;
     if (!name || !price || !description) {
       return res
         .status(400)
@@ -33,6 +34,8 @@ const AddProduct = async (req, res) => {
         .json({ status: "fail", message: "File not found" });
     }
     console.log(fileImage);
+
+    name = upperString(name);
     const product = new Product({
       name,
       price,

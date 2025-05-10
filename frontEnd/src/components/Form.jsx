@@ -5,9 +5,21 @@ import * as Yup from "yup";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { data } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { userContext } from "../userContext/UserContext";
+import { jwtDecode } from "jwt-decode";
 // import { useEffect, useState } from "react";
 
 function Form({ setUpdate }) {
+  const { token } = useContext(userContext);
+  const [tokenLo, setTokenLo] = useState("");
+  useEffect(() => {
+    if (token) {
+      const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+      setTokenLo(userInfo?.data?.token);
+    }
+  }, [token]);
+
   async function onSubmit(values, { resetForm }) {
     // console.log(values);
     const formData = new FormData();
@@ -22,7 +34,12 @@ function Form({ setUpdate }) {
 
     const dataPromise = axios.post(
       "http://localhost:5001/api/v1/products",
-      formData
+      formData,
+      {
+        headers: {
+          authorization: tokenLo,
+        },
+      }
     );
     toast.promise(dataPromise, {
       loading: "loading...",

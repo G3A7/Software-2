@@ -24,7 +24,12 @@ const upload = multer({ storage });
 router
   .route("/")
   .get(GetAllProducts)
-  .post(upload.single("fileImage"), AddProduct);
+  .post(
+    upload.single("fileImage"),
+    verifyToken,
+    allowedTo("admin"),
+    AddProduct
+  );
 router
   .route("/:id")
   .get(GetSingleProduct)

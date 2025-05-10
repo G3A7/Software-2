@@ -230,7 +230,6 @@ describe("User Login", () => {
       repassword: "Ahmed@123!",
       phone: "01279281753",
     });
-  
 
     const res_2 = await request(app).post("/api/v1/auth/login").send({
       email: "Ah7med@gmail.com",
@@ -238,7 +237,6 @@ describe("User Login", () => {
     });
     // console.log(res_2);
     expect(res_2.status).toBe(400);
-
   });
 
   it("should return 500 if error occurs during login", async () => {
@@ -258,15 +256,19 @@ describe("User Login", () => {
 // unit Test for matchPass function and matchPassBtwRepassword
 describe("Password matching functions", () => {
   test("matchPass returns true if passwords match", () => {
-    expect(matchPass("Test@123", "Test@123")).toBe(true);
+    expect(matchPass("Test@123", "Test@123")).toBeTruthy();
   });
 
   test("matchPass returns false if passwords do not match", () => {
-    expect(matchPass("Test@123", "WrongPass")).toBe(false);
+    expect(matchPass("Test@123", "WrongPass")).toBeFalsy();
   });
 
   test("matchPassBtwRepassword returns true if repassword matches password", () => {
-    expect(matchPassBtwRepassword("Test@123", "Test@123")).toBe(true);
+    expect(matchPassBtwRepassword("Test@123", "Test@123")).toBeTruthy();
+  });
+
+  test("matchPassBtwRepassword returns false if repassword matches password", () => {
+    expect(matchPassBtwRepassword("Test@1231", "Test@123")).toBeFalsy();
   });
 
   // test("matchPassBtwRepassword returns false if repassword does not match", async () => {
