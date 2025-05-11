@@ -3,10 +3,7 @@ const app = require("../index.js");
 const User = require("../models/user.model.js");
 const request = require("supertest");
 require("dotenv").config();
-const {
-  matchPass,
-  matchPassBtwRepassword,
-} = require("../controllers/auth.controller.js");
+const { matchPassBtwRepassword } = require("../controllers/auth.controller.js");
 
 beforeEach(async () => {
   await mongoose.connect(
@@ -255,13 +252,13 @@ describe("User Login", () => {
 
 // unit Test for matchPass function and matchPassBtwRepassword
 describe("Password matching functions", () => {
-  test("matchPass returns true if passwords match", () => {
-    expect(matchPass("Test@123", "Test@123")).toBeTruthy();
-  });
+  // test("matchPass returns true if passwords match", () => {
+  //   expect(matchPass("Test@123", "Test@123")).toBeTruthy();
+  // });
 
-  test("matchPass returns false if passwords do not match", () => {
-    expect(matchPass("Test@123", "WrongPass")).toBeFalsy();
-  });
+  // test("matchPass returns false if passwords do not match", () => {
+  //   expect(matchPass("Test@123", "WrongPass")).toBeFalsy();
+  // });
 
   test("matchPassBtwRepassword returns true if repassword matches password", () => {
     expect(matchPassBtwRepassword("Test@123", "Test@123")).toBeTruthy();

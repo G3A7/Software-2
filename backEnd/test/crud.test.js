@@ -5,9 +5,11 @@ const Product = require("../models/product.model.js");
 const request = require("supertest");
 require("dotenv").config();
 const path = require("path");
+const bcrypt = require("bcryptjs");
 const imagePath = path.join(__dirname, "../uploads/Zain.jpg");
 let token = "";
 beforeAll(async () => {
+  // const hashedPassword = await bcrypt.hash("Admin123!", 10);
   await mongoose.connect(
     process.env.URL.replace("<db_password>", process.env.db_password).replace(
       "${DB_NAME}",

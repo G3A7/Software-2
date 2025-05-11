@@ -1,6 +1,6 @@
 const User = require("../models/user.model");
 const generateToken = require("../utils/generateToken");
-
+const bcrypt = require("bcryptjs");
 async function register(req, res) {
   try {
     const { name, email, password, repassword, phone } = req.body;
@@ -45,8 +45,12 @@ async function register(req, res) {
         .status(400)
         .json({ status: "fail", message: "User Already Exists 😄" });
     }
-
-    const user = new User(req.body);
+    const hashPass = await bcrypt.hash(password, 10);
+    const user = new User({
+      ...req.body,
+      password: hashPass,
+      repassword: hashPass,
+    });
     const token = await generateToken({
       id: user._id,
       email: user.email,
@@ -91,7 +95,11 @@ async function login(req, res) {
 
     const user = await User.findOne({ email });
     console.log(user);
-    if (!user || !matchPass(password, user.password)) {
+    let matchPass = false;
+    if (user) {
+      matchPass = await bcrypt.compare(password, user.password);
+    }
+    if (!user || !matchPass) {
       return res
         .status(400)
         .json({ status: "fail", message: "something Error 😗" });
@@ -103,9 +111,9 @@ async function login(req, res) {
   }
 }
 
-function matchPass(password, usePassword) {
-  return password == usePassword;
-}
+// function matchPass(password, usePassword) {
+//   return password == usePassword;
+// }
 function matchPassBtwRepassword(password, repassword) {
   return password == repassword;
 }
@@ -113,6 +121,6 @@ function matchPassBtwRepassword(password, repassword) {
 module.exports = {
   login,
   register,
-  matchPass,
+  // matchPass,
   matchPassBtwRepassword,
 };
