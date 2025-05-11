@@ -16,6 +16,7 @@ function WishListContext({ children }) {
     // JSON.parse(localStorage.getItem("wishListLocal"))
     // []
   );
+  const [totalPrice, setTotalPrice] = useState(0);
   //   console.log(localStorage.getItem("wishListLocal"));
   //   useEffect(() => {
   //     if (token) {
@@ -52,7 +53,10 @@ function WishListContext({ children }) {
           },
         }
       );
+      console.log("first One");
       console.log(data?.data?.wishlist);
+      console.log(data?.data);
+      setTotalPrice(data?.data?.sum);
       setWishList(data?.data?.wishlist);
       localStorage.setItem(
         "wishListLocal",
@@ -65,7 +69,13 @@ function WishListContext({ children }) {
 
   return (
     <wishListContext.Provider
-      value={{ addToOrRemoveFromWishList, getWishList, wishList, setWishList }}
+      value={{
+        addToOrRemoveFromWishList,
+        getWishList,
+        wishList,
+        setWishList,
+        totalPrice,
+      }}
     >
       {children}
     </wishListContext.Provider>

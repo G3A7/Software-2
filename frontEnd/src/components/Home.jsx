@@ -9,7 +9,7 @@ import toast from "react-hot-toast";
 function Home() {
   //  setLoaderIconCart((prev) => ({ ...prev, [id]: true }));
   //  setLoaderIconCart((prev) => ({ ...prev, [id]: false }));
-  const { addToOrRemoveFromWishList, getWishList, wishList } =
+  const { addToOrRemoveFromWishList, getWishList, wishList, totalPrice } =
     useContext(wishListContext);
   const { token } = useContext(userContext);
   const [productsShow, setProductsShow] = useState([]);
@@ -32,14 +32,15 @@ function Home() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
-  useEffect(() => {
-    console.log(
-      localStorage.getItem("wishListLocal")
-        ? JSON.parse(localStorage.getItem("wishListLocal"))
-        : []
-    );
-    // console.log(JSON.parse(localStorage.getItem("wishListLocal")));
-  }, []);
+  // useEffect(() => {
+  //   // console.log(
+  //   //   localStorage.getItem("wishListLocal")
+  //   //     ? JSON.parse(localStorage.getItem("wishListLocal"))
+  //   //     : []
+  //   // );
+  //   token && handleGetWishList();
+  //   // console.log(JSON.parse(localStorage.getItem("wishListLocal")));
+  // }, [token]);
   const [name, setName] = useState("");
   useEffect(() => {
     if (token) {
@@ -72,7 +73,7 @@ function Home() {
       console.log(err.response.data.message);
     }
   }
-  console.log("adasdasdasdasdadasdasdasdasdadasdasd".length);
+  // console.log("adasdasdasdasdadasdasdasdasdadasdasd".length);
   async function handleGetWishList() {
     await getWishList();
   }
@@ -86,7 +87,7 @@ function Home() {
         <div className="flex items-center justify-between ">
           <div>
             <p>
-              Total:<span>0</span>
+              Total:<span>{totalPrice}</span>
             </p>
           </div>
           <div

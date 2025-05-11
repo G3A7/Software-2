@@ -1,4 +1,5 @@
 const Wishlist = require("../models/wishList.model");
+const sumPrice = require("../utils/sumPrice");
 // const Product = require("../models/product.model");
 // const User = require("../models/user.model");
 
@@ -37,15 +38,21 @@ const addToWishlist = async (req, res) => {
 
 const getWishlist = async (req, res) => {
   const userId = req.currentUser.id;
+  let sum = 0;
   try {
     const wishlist = await Wishlist.find({ user: userId }).populate("product");
-    console.log(wishlist);
-    // if (!wishlist) {
-    //   return res.status(404).json({ message: "Wishlist not found" });
+    // console.log(
+    //   "-------------------------\n",
+    //   wishlist,
+    //   "------------------------------\n"
+    // );
+    // if (wishlist?.length > 0) {
+      sum =  sumPrice(wishlist);
+      //   // return res.status(404).json({ message: "Wishlist not found" });
     // }
     return res
       .status(200)
-      .json({ status: "Success", data: { wishlist }, code: 201 });
+      .json({ status: "Success", data: { wishlist, sum }, code: 201 });
   } catch (err) {
     res.status(500).json({ message: "Server error" });
   }
