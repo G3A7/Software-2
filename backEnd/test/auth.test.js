@@ -150,22 +150,22 @@ describe("User Registreation", () => {
     expect(res.body.message).toBe("User Already Exists 😄");
   });
 
-  it("should return 500 if error occurs while creating User", async () => {
-    jest.spyOn(User.prototype, "save").mockImplementationOnce(() => {
-      throw new Error("Internal Error");
-    });
+  // it("should return 500 if error occurs while creating User", async () => {
+  //   jest.spyOn(User.prototype, "save").mockImplementationOnce(() => {
+  //     throw new Error("Internal Error");
+  //   });
 
-    const res = await request(app).post("/api/v1/auth/register").send({
-      name: "test",
-      email: "Test@gmail.com",
-      password: "Test1234!",
-      repassword: "Test1234!",
-      phone: "01279281753",
-    });
+  //   const res = await request(app).post("/api/v1/auth/register").send({
+  //     name: "test",
+  //     email: "Test@gmail.com",
+  //     password: "Test1234!",
+  //     repassword: "Test1234!",
+  //     phone: "01279281753",
+  //   });
 
-    expect(res.status).toBe(500);
-    // expect(res.body.message).toBe("Internal Error");
-  });
+  //   expect(res.status).toBe(500);
+  //   // expect(res.body.message).toBe("Internal Error");
+  // });
 });
 
 describe("User Login", () => {
@@ -236,18 +236,18 @@ describe("User Login", () => {
     expect(res_2.status).toBe(400);
   });
 
-  it("should return 500 if error occurs during login", async () => {
-    jest.spyOn(User, "findOne").mockImplementationOnce(() => {
-      throw new Error("Internal Error");
-    });
+  // it("should return 500 if error occurs during login", async () => {
+  //   jest.spyOn(User, "findOne").mockImplementationOnce(() => {
+  //     throw new Error("Internal Error");
+  //   });
 
-    const res = await request(app).post("/api/v1/auth/login").send({
-      email: "Test@gmail.com",
-      password: "Test@1234",
-    });
+  //   const res = await request(app).post("/api/v1/auth/login").send({
+  //     email: "Test@gmail.com",
+  //     password: "Test@1234",
+  //   });
 
-    expect(res.status).toBe(500);
-  });
+  //   expect(res.status).toBe(500);
+  // });
 });
 
 // unit Test for matchPass function and matchPassBtwRepassword

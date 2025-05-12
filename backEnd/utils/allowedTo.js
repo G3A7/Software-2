@@ -1,7 +1,6 @@
 function allowedTo(role) {
   return (req, res, next) => {
     if (!(req.currentUser.role == role)) {
-      console.log("not admin");
       return res.status(401).json({
         status: "fail",
         message: "not Admin",

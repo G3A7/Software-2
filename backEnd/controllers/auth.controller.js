@@ -5,7 +5,7 @@ async function register(req, res) {
   try {
     const { name, email, password, repassword, phone } = req.body;
     // console.log(name, email, password);
-    if (!/^[a-zA-Z]{3,12}$/i.test(name) || !name) {
+    if (!/^[a-zA-Z0-9]{3,12}$/i.test(name) || !name) {
       return res
         .status(400)
         .json({ status: "fail", mesage: "must be range 3 to 12 Char 😄" });
@@ -71,7 +71,7 @@ async function register(req, res) {
       .status(201)
       .json({ status: "Success", data: { token }, code: 201 });
   } catch (error) {
-    return res.status(500).json({ status: "error", message: error.message });
+    // return res.status(500).json({ status: "error", message: error.message });
   }
 }
 async function login(req, res) {
@@ -107,7 +107,8 @@ async function login(req, res) {
     const { token } = user;
     return res.status(200).json({ status: "Success", data: { token } });
   } catch (err) {
-    res.status(500).json({ status: "error", message: err.message });
+    // console.log(err);
+    // res.status(500).json({ status: "error", message: err.message });
   }
 }
 

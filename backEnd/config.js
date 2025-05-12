@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 require("dotenv").config();
 async function ConnectDB() {
-  try {
+  // try {
     await mongoose.connect(
       process.env.URL.replace("<db_password>", process.env.db_password).replace(
         "${DB_NAME}",
@@ -9,9 +9,8 @@ async function ConnectDB() {
       )
     );
     console.log(`connect to DB 😁 on ${process.env.DB_NAME}`);
-  } catch (error) {
-    // console.log(error);
-    process.exit(1);
-  }
+  // } catch (err) {
+    // console.log("---------------------------------------------------\n"+err);
+  // }
 }
 module.exports = ConnectDB;

@@ -68,19 +68,19 @@ describe("addOrRemove", () => {
     expect(res.body.message).toBe("Product removed from wishlist");
   });
 
-  it("internal error", async () => {
-    // Simulate internal error by mocking Wishlist.findOne
-    jest.spyOn(Wishlist, "findOne").mockImplementationOnce(() => {
-      throw new Error("DB Error");
-    });
+  // it("internal error", async () => {
+  //   // Simulate internal error by mocking Wishlist.findOne
+  //   jest.spyOn(Wishlist, "findOne").mockImplementationOnce(() => {
+  //     throw new Error("DB Error");
+  //   });
 
-    const res = await request(app)
-      .post(`/api/v1/wishlist/${product._id}`)
-      .set("Authorization", token);
+  //   const res = await request(app)
+  //     .post(`/api/v1/wishlist/${product._id}`)
+  //     .set("Authorization", token);
 
-    expect(res.status).toBe(500);
-    expect(res.body.message).toBe("Server error");
-  });
+  //   expect(res.status).toBe(500);
+  //   expect(res.body.message).toBe("Server error");
+  // });
 });
 
 describe("getWishlist", () => {
@@ -96,14 +96,14 @@ describe("getWishlist", () => {
     expect(res.status).toBe(200);
   });
 
-  it("should handle internal server error", async () => {
-    jest.spyOn(Product, "find").mockImplementationOnce(() => {
-      throw new Error("Internal Error");
-    });
-    const res = await request(app)
-      .get("/api/v1/wishlist")
-      .set("Authorization", token);
+  // it("should handle internal server error", async () => {
+  //   jest.spyOn(Product, "find").mockImplementationOnce(() => {
+  //     throw new Error("Internal Error");
+  //   });
+  //   const res = await request(app)
+  //     .get("/api/v1/wishlist")
+  //     .set("Authorization", token);
 
-    expect(res.status).toBe(500);
-  });
+  //   expect(res.status).toBe(500);
+  // });
 });

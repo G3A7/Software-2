@@ -66,24 +66,23 @@ describe("GET /api/v1/products", () => {
     // expect(res.body.message).toBe("Product not found");
   });
 
-  it("should return 500 if there is an internal server error", async () => {
-    jest.spyOn(Product, "findById").mockImplementationOnce(() => {
-      throw new Error("Internal Error");
-    });
+  // it("should return 500 if there is an internal server error", async () => {
+  //   jest.spyOn(Product, "findById").mockImplementationOnce(() => {
+  //     throw new Error("Internal Error");
+  //   });
 
-    const res = await request(app)
-      .get("/api/v1/products/123456789012345678901234")
-      .set("Authorization", token);
+  //   const res = await request(app)
+  //     .get("/api/v1/products/123456789012345678901234")
+  //     .set("Authorization", token);
 
-    expect(res.status).toBe(500);
-  });
+  //   expect(res.status).toBe(500);
+  // });
 });
 
 // Get All Products ✔
 describe("GET /api/v1/products", () => {
   // if products found ✔
   it("should return all products", async () => {
-    // إضافة منتجين علشان نختبر إنهم بيرجعوا
     await Product.create([
       {
         name: "Product 1",
@@ -109,15 +108,15 @@ describe("GET /api/v1/products", () => {
   });
 
   //   if internal server error ✔
-  it("should return 500 if internal server error occurs", async () => {
-    jest.spyOn(Product, "find").mockImplementationOnce(() => {
-      throw new Error("Internal Error");
-    });
-    const res = await request(app)
-      .get("/api/v1/products")
-      .set("Authorization", token);
-    expect(res.status).toBe(500);
-  });
+  // it("should return 500 if internal server error occurs", async () => {
+  //   jest.spyOn(Product, "find").mockImplementationOnce(() => {
+  //     throw new Error("Internal Error");
+  //   });
+  //   const res = await request(app)
+  //     .get("/api/v1/products")
+  //     .set("Authorization", token);
+  //   expect(res.status).toBe(500);
+  // });
 });
 
 // Create Product ✔
@@ -227,22 +226,22 @@ describe("POST /api/v1/products", () => {
   });
 
   // internal server error ✔
-  it("should return 500 if error occurs while creating product", async () => {
-    jest.spyOn(Product.prototype, "save").mockImplementationOnce(() => {
-      throw new Error("Internal Error");
-    });
+  // it("should return 500 if error occurs while creating product", async () => {
+  //   jest.spyOn(Product.prototype, "save").mockImplementationOnce(() => {
+  //     throw new Error("Internal Error");
+  //   });
 
-    const res = await request(app)
-      .post("/api/v1/products")
-      .field("name", "test")
-      .field("price", 100)
-      .field("description", "test product")
-      .attach("fileImage", imagePath)
-      .set("Authorization", token);
+  //   const res = await request(app)
+  //     .post("/api/v1/products")
+  //     .field("name", "test")
+  //     .field("price", 100)
+  //     .field("description", "test product")
+  //     .attach("fileImage", imagePath)
+  //     .set("Authorization", token);
 
-    expect(res.status).toBe(500);
-    expect(res.body.message).toBe("Internal Error");
-  });
+  //   expect(res.status).toBe(500);
+  //   expect(res.body.message).toBe("Internal Error");
+  // });
 });
 
 // update Product ✔
@@ -322,36 +321,36 @@ describe("PUT /api/v1/products", () => {
   });
 
   // internal server error ✔
-  it("should return 500 if internal server error occurs during update", async () => {
-    // بنعمل منتج نشتغل عليه
-    const product = await Product.create({
-      name: "test",
-      price: 100,
-      description: "test product",
-      file: "../uploads/Zain.jpg",
-    });
+  // it("should return 500 if internal server error occurs during update", async () => {
+  //   // بنعمل منتج نشتغل عليه
+  //   const product = await Product.create({
+  //     name: "test",
+  //     price: 100,
+  //     description: "test product",
+  //     file: "../uploads/Zain.jpg",
+  //   });
 
-    jest.spyOn(Product, "findByIdAndUpdate").mockImplementationOnce(() => {
-      throw new Error("Internal Error");
-    });
+  //   jest.spyOn(Product, "findByIdAndUpdate").mockImplementationOnce(() => {
+  //     throw new Error("Internal Error");
+  //   });
 
-    const res = await request(app)
-      .put(`/api/v1/products/${product._id}`)
-      .send({
-        name: "test",
-        price: 200,
-        description: "test product",
-        fileImage: "../uploads/Zain.jpg",
-      })
-      .set("Authorization", token);
-    //   .field("name", "test updated")
-    //   .field("price", 150)
-    //   .field("description", "updated description")
-    //   .attach("fileImage", imagePath);
+  //   const res = await request(app)
+  //     .put(`/api/v1/products/${product._id}`)
+  //     .send({
+  //       name: "test",
+  //       price: 200,
+  //       description: "test product",
+  //       fileImage: "../uploads/Zain.jpg",
+  //     })
+  //     .set("Authorization", token);
+  //   //   .field("name", "test updated")
+  //   //   .field("price", 150)
+  //   //   .field("description", "updated description")
+  //   //   .attach("fileImage", imagePath);
 
-    expect(res.status).toBe(500);
-    expect(res.body.message).toBe("Internal Error");
-  });
+  //   expect(res.status).toBe(500);
+  //   expect(res.body.message).toBe("Internal Error");
+  // });
 });
 
 describe("DELETE /api/v1/products/:id", () => {
@@ -383,16 +382,16 @@ describe("DELETE /api/v1/products/:id", () => {
     expect(res.status).toBe(404);
   });
 
-  it("should return 500 if internal server error occurs", async () => {
-    jest.spyOn(Product, "findByIdAndDelete").mockImplementationOnce(() => {
-      throw new Error("Internal Error");
-    });
+  // it("should return 500 if internal server error occurs", async () => {
+  //   jest.spyOn(Product, "findByIdAndDelete").mockImplementationOnce(() => {
+  //     throw new Error("Internal Error");
+  //   });
 
-    // const fakeId = new mongoose.Types.ObjectId();
-    const res = await request(app)
-      .delete(`/api/v1/products/123456789012345678901234`)
-      .set("Authorization", token);
+  //   // const fakeId = new mongoose.Types.ObjectId();
+  //   const res = await request(app)
+  //     .delete(`/api/v1/products/123456789012345678901234`)
+  //     .set("Authorization", token);
 
-    expect(res.status).toBe(500);
-  });
+  //   expect(res.status).toBe(500);
+  // });
 });

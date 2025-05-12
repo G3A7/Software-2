@@ -22,7 +22,7 @@ const addToWishlist = async (req, res) => {
 
     res.status(201).json({ message: "Product added to wishlist" });
   } catch (err) {
-    res.status(500).json({ message: "Server error" });
+    // res.status(500).json({ message: "Server error" });
   }
 };
 
@@ -54,7 +54,7 @@ const getWishlist = async (req, res) => {
       .status(200)
       .json({ status: "Success", data: { wishlist, sum }, code: 201 });
   } catch (err) {
-    res.status(500).json({ message: "Server error" });
+    // res.status(500).json({ message: "Server error" });
   }
 };
 

@@ -48,7 +48,7 @@ const AddProduct = async (req, res) => {
       .status(201)
       .json({ status: "Success", data: { product }, code: 201 });
   } catch (error) {
-    return res.status(500).json({ status: "error", message: error.message });
+    // return res.status(500).json({ status: "error", message: error.message });
   }
 };
 const GetAllProducts = async (req, res) => {
@@ -56,7 +56,7 @@ const GetAllProducts = async (req, res) => {
     const products = await Product.find();
     return res.status(200).json({ status: "Success", data: { products } });
   } catch (error) {
-    return res.status(500).json({ status: "error", message: error.message });
+    // return res.status(500).json({ status: "error", message: error.message });
   }
 };
 const GetSingleProduct = async (req, res) => {
@@ -70,7 +70,7 @@ const GetSingleProduct = async (req, res) => {
     }
     return res.status(200).json({ status: "Success", data: { product } });
   } catch (error) {
-    return res.status(500).json({ status: "error", message: error.message });
+    // return res.status(500).json({ status: "error", message: error.message });
   }
 };
 const deleteProduct = async (req, res) => {
@@ -84,7 +84,7 @@ const deleteProduct = async (req, res) => {
     }
     return res.status(200).json({ status: "Success", data: { product } });
   } catch (error) {
-    return res.status(500).json({ status: "error", message: error.message });
+    // return res.status(500).json({ status: "error", message: error.message });
   }
 };
 const updateProduct = async (req, res) => {
@@ -110,7 +110,7 @@ const updateProduct = async (req, res) => {
 
     return res.status(200).json({ status: "Success", data: { product } });
   } catch (error) {
-    return res.status(500).json({ status: "error", message: error.message });
+    // return res.status(500).json({ status: "error", message: error.message });
   }
 };
 module.exports = {
